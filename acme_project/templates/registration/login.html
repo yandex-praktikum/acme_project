@@ -1,0 +1,45 @@
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+<!-- Загружаем библиотеку для работы со стилями Bootstrap. -->
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <!-- Если в запросе передан GET-параметр с указанием страницы, 
+    куда надо перейти после входа. -->
+  {% if next %}
+    <!-- Если пользователь уже залогинен, но не обладает нужными правами. -->
+    {% if user.is_authenticated %}
+      <p>
+        У вашего аккаунта нет доступа к этой странице.
+        Чтобы продолжить, войдите в систему с аккаунтом,
+        у которого есть доступ.
+      </p>
+    {% else %}
+      <p>
+        Пожалуйста, войдите в систему,
+        чтобы просматривать эту страницу.
+      </p>
+    {% endif %}
+  {% endif %}
+
+  <div class="card col-4 m-3">
+    <div class="card-header">
+      Войти в систему
+    </div>
+    <div class="card-body">
+      <!-- В атрибуте action указываем адрес, куда должен отправляться запрос. -->
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <!-- В скрытом поле передаём параметр next, 
+          это URL для переадресации после логина. -->
+        <input type="hidden" name="next" value="{{ next }}">
+        {% bootstrap_button button_type="submit" content="Войти" %}
+      </form>
+      <div>
+        <!-- Ссылка для перехода на страницу восстановления пароля. -->
+        <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
