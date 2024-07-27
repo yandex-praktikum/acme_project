@@ -10,6 +10,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link {% if view_name == 'birthday:list' %} active {% endif %}"
+              href="{% url 'birthday:list' %}">
+              Список дней рождения
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link {% if view_name == 'birthday:create' %} active {% endif %}"
               href="{% url 'birthday:create' %}">
               Калькулятор дней рождения
