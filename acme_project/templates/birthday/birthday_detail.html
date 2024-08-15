@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+<!-- Подгружаем теги для библиотеки django_bootstrap -->
+{% load django_bootstrap5 %}
+
+{% block content %}
+  ID записи: {{ object.id }}
+  <hr>
+  {% if birthday.image %}
+    <div>
+      <img src="{{ birthday.image.url }}" height="200">
+    </div>
+  {% endif %}
+  <h2>Привет, {{ object.first_name }} {{ object.last_name }}</h2>      
+  {% if birthday_countdown == 0 %}
+    <p>С днём рождения!</p>
+  {% else %}
+    <p>Осталось дней до дня рождения: {{ birthday_countdown }}!</p>
+  {% endif %}
+  <div>
+    <h3>Поздравления:</h3>
+    <!-- Если пользователь залогинен, отображаем форму -->
+    {% if user.is_authenticated %}
+      <!-- Указываем, на какой адрес нужно отправить POST-запрос -->
+      <form action="{% url 'birthday:add_comment' object.pk %}" method="post" class="col-3">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="Отправить поздравление" %}
+      </form>
+    {% endif %}
+    <!-- В цикле перебираем и выводим поздравления -->
+    {% for congratulation in congratulations %}
+      <hr>
+      <p>
+        {{ congratulation.author.username }}
+        поздравил {{ congratulation.created_at|date:"d M Y H:i" }}
+      </p>
+      <p><b>{{ congratulation.text }}</b></p>
+    {% endfor %}
+  </div>
+{% endblock content %} 

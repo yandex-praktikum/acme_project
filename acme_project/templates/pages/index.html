@@ -2,5 +2,19 @@
 
 {% block content %}
   <h1>Проект ACME</h1>
-  <p>Acme Corporation: <b>A</b> <b>C</b>ompany <b>M</b>ade <b>E</b>verything</p>
-{% endblock %}
+  <p>
+    Acme Corporation: <b>A</b> <b>C</b>ompany <b>M</b>ade <b>E</b>verything
+  </p>
+  <!-- Добавим строку "row" -->
+  <div class="row">
+    <!-- Добавим колонку "col-3" -->
+    <div class="col-3">
+      Количество записей о днях рождения<br />в нашем проекте:
+    </div>
+    <div class="col-9">
+      <!-- Добавим колонку "col-9" и выведем значение переменной total_count.
+           С помощью стиля Bootstrap отобразим его очень крупным шрифтом  -->
+      <div class="display-1">{{ total_count }}</div>
+    </div>
+  </div>
+{% endblock %} 

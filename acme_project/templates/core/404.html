@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Custom 404{% endblock %}
+
+{% block content %}
+  <h1>Custom 404</h1>
+  <p>Страницы с адресом {{ request.path }} не существует</p>
+  <a href="{% url 'pages:homepage' %}">Идите на главную</a>
+{% endblock %} 
