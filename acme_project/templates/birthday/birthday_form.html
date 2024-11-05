@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+<!-- Подключаем библиотеку django_bootstrap5. -->
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <!-- Если в пути запроса содержится строка /edit/. -->
+  {% if '/edit/' in request.path %}
+    <!-- Вывести заголовок и номер записи. -->
+    <h1>Редактировать запись {{ form.instance.pk }}</h1>
+  {% else %}
+    <h1>Создать запись</h1>
+  {% endif %}
+  <div class="card col-4">
+    <div class="card-header">
+      Калькулятор ожидания дня рождения
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="Отправить" %}
+      </form>
+    </div>
+  </div>
+{% endblock %}
